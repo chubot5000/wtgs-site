@@ -1,0 +1,722 @@
+<html lang="en" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">Where the Giants Sleep</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&amp;family=Inter:wght@300;400;500&amp;display=swap" rel="stylesheet" vid="7">
+    <style vid="8">
+        :root {
+            --bg-void: #020204;
+            --bg-depth: #08080c;
+            --accent-glow: #5d7fb0;
+            --accent-nebula: #2a2640;
+            --text-primary: #e0e6ed;
+            --text-secondary: #8b9bb4;
+            --glass-surface: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            
+            --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+            --ease-dream: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-void);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        
+        .ambient-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: breathe 15s infinite alternate var(--ease-dream);
+        }
+
+        .nebula-1 {
+            top: -10%;
+            left: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, var(--accent-nebula), transparent 70%);
+        }
+
+        .nebula-2 {
+            bottom: 20%;
+            right: -20%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, #1a1e33, transparent 70%);
+            animation-delay: -5s;
+        }
+
+        @keyframes breathe {
+            0% { transform: scale(1); opacity: 0.3; }
+            100% { transform: scale(1.1); opacity: 0.5; }
+        }
+
+        
+        .starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: flicker var(--duration) ease-in-out infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.1; transform: scale(0.8); }
+            50% { opacity: 0.4; }
+            100% { opacity: 0.8; transform: scale(1); }
+        }
+
+        
+        .layout {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 0;
+            z-index: 100;
+            position: relative;
+        }
+
+        .brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--text-primary);
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-item {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            position: relative;
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background: var(--accent-glow);
+            transition: width 0.4s var(--ease-out);
+            opacity: 0.5;
+        }
+
+        .nav-item:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-item:hover::after {
+            width: 100%;
+        }
+
+        
+        .hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            z-index: 20;
+            transform: translateY(-50px);
+        }
+
+        .hero h1 {
+            font-size: 6rem;
+            margin-bottom: 24px;
+            background: linear-gradient(180deg, #fff 0%, #aabdd6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(160, 190, 255, 0.1);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto 48px;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            background: var(--glass-surface);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-out);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(93, 127, 176, 0.3);
+            box-shadow: 0 0 20px rgba(93, 127, 176, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .play-icon {
+            width: 12px;
+            height: 12px;
+            background: currentColor;
+            clip-path: polygon(0 0, 100% 50%, 0 100%);
+        }
+
+        
+        .moon-container {
+            position: absolute;
+            bottom: -25vh; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80vh;
+            height: 80vh;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .moon {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            
+            background: radial-gradient(
+                circle at 50% 0%, 
+                rgba(30, 35, 50, 1) 0%, 
+                rgba(5, 5, 8, 1) 60%
+            );
+            box-shadow: 
+                inset 0 20px 60px rgba(93, 127, 176, 0.1),
+                0 -20px 80px rgba(93, 127, 176, 0.15),
+                0 0 100px rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+        
+        
+        .moon::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 50%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            mix-blend-mode: overlay;
+        }
+
+        .moon-atmosphere {
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 20px;
+            background: var(--accent-glow);
+            filter: blur(40px);
+            opacity: 0.3;
+            border-radius: 50%;
+        }
+
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.5;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            z-index: 25;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--text-secondary), transparent);
+        }
+
+        
+        .episodes-section {
+            padding: 120px 0;
+            position: relative;
+            z-index: 20;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 60px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+        }
+
+        .view-all {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .episode-card {
+            background: var(--glass-surface);
+            border: 1px solid var(--glass-border);
+            border-radius: 2px; 
+            padding: 32px;
+            transition: all 0.4s var(--ease-out);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .episode-card:hover {
+            border-color: rgba(93, 127, 176, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3);
+        }
+
+        
+        .episode-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(93, 127, 176, 0.06), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .episode-card:hover::before {
+            opacity: 1;
+        }
+
+        .ep-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .ep-number {
+            color: var(--accent-glow);
+        }
+
+        .ep-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.75rem;
+            margin-bottom: 16px;
+            color: #fff;
+        }
+
+        .ep-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            flex-grow: 1;
+        }
+
+        .ep-action {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .episode-card:hover .ep-action {
+            opacity: 1;
+        }
+
+        .play-circle {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .episode-card:hover .play-circle {
+            border-color: var(--accent-glow);
+            background: rgba(93, 127, 176, 0.1);
+        }
+
+        
+        .subscribe-section {
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        
+        .subscribe-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--glass-border), transparent);
+        }
+
+        .sub-input-group {
+            display: inline-flex;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .sub-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--text-secondary);
+            padding: 16px 20px;
+            width: 300px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .sub-input:focus {
+            border-color: var(--accent-glow);
+        }
+
+        .sub-btn {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--text-secondary);
+            padding: 16px 20px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        .sub-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--text-primary);
+        }
+
+        
+        footer {
+            border-top: 1px solid var(--glass-border);
+            padding: 60px 40px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            opacity: 0.6;
+        }
+        
+        .socials {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .social-link {
+            opacity: 0.5;
+        }
+        
+        .social-link:hover {
+            opacity: 1;
+        }
+
+        
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 4rem; }
+            .grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .moon-container { width: 100vw; height: 100vw; bottom: -15vh; }
+        }
+    </style>
+</head>
+<body vid="9">
+
+    
+    <div class="ambient-layer" vid="10">
+        <div class="nebula nebula-1" vid="11"></div>
+        <div class="nebula nebula-2" vid="12"></div>
+    </div>
+
+    
+    <div class="starfield" id="starfield" vid="13"></div>
+
+    <div class="layout" vid="14">
+        <nav vid="15">
+            <div class="brand" vid="16">Where the Giants Sleep</div>
+            <div class="nav-links" vid="17">
+                <a href="#" class="nav-item" vid="18">Episodes</a>
+                <a href="#" class="nav-item" vid="19">About</a>
+                <a href="#" class="nav-item" vid="20">Listen</a>
+                <a href="#" class="nav-item" vid="21">Shop</a>
+            </div>
+            
+            <div style="width: 24px; height: 1px; background: white; opacity: 0.5; display: none;" vid="22"></div>
+        </nav>
+
+        <header class="hero" vid="23">
+            <div class="hero-content" vid="24">
+                <h1 vid="25">Drift into the Void</h1>
+                <p vid="26">Audio landscapes designed for deep rest. Stories from the edge of consciousness, narrated for the weary mind.</p>
+                <button class="cta-button" vid="27">
+                    <div class="play-icon" vid="28"></div>
+                    <span vid="29">Start Listening</span>
+                </button>
+            </div>
+            
+            <div class="moon-container" vid="30">
+                <div class="moon-atmosphere" vid="31"></div>
+                <div class="moon" vid="32"></div>
+            </div>
+
+            <div class="scroll-indicator" vid="33">
+                <span vid="34">Explore</span>
+                <div class="scroll-line" vid="35"></div>
+            </div>
+        </header>
+
+        <section class="episodes-section" vid="36">
+            <div class="section-header" vid="37">
+                <h2 class="section-title" vid="38">Recent Dreams</h2>
+                <a href="#" class="view-all" vid="39">View Archive →</a>
+            </div>
+
+            <div class="grid" vid="40">
+                
+                <article class="episode-card" vid="41">
+                    <div class="ep-meta" vid="42">
+                        <span class="ep-number" vid="43">No. 042</span>
+                        <span class="ep-date" vid="44">Oct 12</span>
+                    </div>
+                    <h3 class="ep-title" vid="45">The Lighthouse at the End of Time</h3>
+                    <p class="ep-desc" vid="46">A solitary keeper watches over a sea of stars, counting the waves as they turn into memories.</p>
+                    <div class="ep-action" vid="47">
+                        <div class="play-circle" vid="48">
+                            <div class="play-icon" style="width: 8px; height: 8px;" vid="49"></div>
+                        </div>
+                        <span vid="50">48 min</span>
+                    </div>
+                </article>
+
+                
+                <article class="episode-card" vid="51">
+                    <div class="ep-meta" vid="52">
+                        <span class="ep-number" vid="53">No. 041</span>
+                        <span class="ep-date" vid="54">Oct 05</span>
+                    </div>
+                    <h3 class="ep-title" vid="55">Beneath the Velveteen Canopy</h3>
+                    <p class="ep-desc" vid="56">Wandering through a forest where the leaves whisper ancient lullabies and the moss glows soft blue.</p>
+                    <div class="ep-action" vid="57">
+                        <div class="play-circle" vid="58">
+                            <div class="play-icon" style="width: 8px; height: 8px;" vid="59"></div>
+                        </div>
+                        <span vid="60">52 min</span>
+                    </div>
+                </article>
+
+                
+                <article class="episode-card" vid="61">
+                    <div class="ep-meta" vid="62">
+                        <span class="ep-number" vid="63">No. 040</span>
+                        <span class="ep-date" vid="64">Sep 28</span>
+                    </div>
+                    <h3 class="ep-title" vid="65">Train to the Midnight City</h3>
+                    <p class="ep-desc" vid="66">Rhythmic tracks and rain on the window pane. A journey to a city that only exists when you close your eyes.</p>
+                    <div class="ep-action" vid="67">
+                        <div class="play-circle" vid="68">
+                            <div class="play-icon" style="width: 8px; height: 8px;" vid="69"></div>
+                        </div>
+                        <span vid="70">45 min</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="subscribe-section" vid="71">
+            <h2 style="font-size: 2rem; margin-bottom: 16px;" vid="72">Join the Slumber</h2>
+            <p style="color: var(--text-secondary);" vid="73">Receive new episodes and quiet thoughts in your inbox.</p>
+            <form class="sub-input-group" onsubmit="event.preventDefault()" vid="74">
+                <input type="email" placeholder="Email Address" class="sub-input" required="" vid="75">
+                <button type="submit" class="sub-btn" vid="76">Wake Me</button>
+            </form>
+        </section>
+    </div>
+
+    <footer vid="77">
+        <div class="footer-logo" vid="78">Where the Giants Sleep</div>
+        <div class="socials" vid="79">
+            <a href="#" class="social-link" vid="80">Instagram</a>
+            <a href="#" class="social-link" vid="81">Spotify</a>
+            <a href="#" class="social-link" vid="82">Apple</a>
+        </div>
+        <p vid="83">© 2023 Giant Sleep Network. Rest well.</p>
+    </footer>
+
+    <script vid="84">
+        
+        const starfield = document.getElementById('starfield');
+        const starCount = 150;
+
+        function createStars() {
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                
+                const size = Math.random() * 2 + 1;
+                
+                
+                const duration = Math.random() * 3 + 2;
+                
+                
+                const delay = Math.random() * 5;
+
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.setProperty('--duration', `${duration}s`);
+                star.style.animationDelay = `${delay}s`;
+
+                starfield.appendChild(star);
+            }
+        }
+
+        createStars();
+
+        
+        const cards = document.querySelectorAll('.episode-card');
+
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+
+</body></html>
