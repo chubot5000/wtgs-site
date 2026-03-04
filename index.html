@@ -91,6 +91,25 @@
         .moon::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 50%; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E"); opacity: 0.3; mix-blend-mode: overlay; }
         .moon-atmosphere { position: absolute; top: -2px; left: 50%; transform: translateX(-50%); width: 80%; height: 20px; background: var(--accent-glow); filter: blur(40px); opacity: 0.3; border-radius: 50%; }
 
+        /* Hero animations */
+        @keyframes wordFade {
+            0% { opacity: 0; transform: translateY(12px); filter: blur(4px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+        @keyframes bodyFade {
+            0% { opacity: 0; transform: translateY(16px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .hero h1 .word {
+            display: inline-block;
+            opacity: 0;
+            animation: wordFade 0.8s var(--ease-dream) forwards;
+        }
+        .hero-body, .cta-group {
+            opacity: 0;
+            animation: bodyFade 1s var(--ease-dream) forwards;
+        }
+
         .scroll-indicator { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0.5; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; z-index: 25; }
         .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--text-secondary), transparent); }
 
@@ -210,9 +229,9 @@
 
         <header class="hero">
             <div class="hero-content">
-                <h1>Drift into the Void</h1>
-                <p>Audio landscapes designed for deep rest. Stories from the edge of consciousness, narrated for the weary mind.</p>
-                <div class="cta-group">
+                <h1><span class="word" style="animation-delay:0.1s">Drift</span> <span class="word" style="animation-delay:0.35s">into</span> <span class="word" style="animation-delay:0.6s">the</span> <span class="word" style="animation-delay:0.85s">Void</span></h1>
+                <p class="hero-body" style="animation-delay:1.4s">Audio landscapes designed for deep rest. Stories from the edge of consciousness, narrated for the weary mind.</p>
+                <div class="cta-group" style="animation-delay:1.8s">
                     <a href="#listen" class="cta-button primary">
                         <div class="play-icon"></div>
                         <span>Start Listening</span>
