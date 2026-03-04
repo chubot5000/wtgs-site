@@ -89,9 +89,10 @@
         .layout { position: relative; z-index: 10; max-width: 1400px; margin: 0 auto; padding: 0 40px; }
 
         /* Nav */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 40px 0; z-index: 100; position: relative; }
+        nav { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 40px 0; z-index: 100; position: relative; }
         .brand { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; color: var(--text-primary); opacity: 0.9; }
-        .nav-links { display: flex; gap: 40px; }
+        .nav-links { display: flex; gap: 40px; justify-self: start; }
+        .nav-cta { display: flex; justify-self: end; }
         .nav-item { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); position: relative; }
         .nav-item::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 1px; background: var(--accent-glow); transition: width 0.4s var(--ease-out); opacity: 0.5; }
         .nav-item:hover { color: var(--text-primary); }
@@ -241,6 +242,8 @@
             .hero h1 { font-size: 2.8rem; }
             .grid, .tiers-grid, .about-grid { grid-template-columns: 1fr; }
             .nav-links { display: none; }
+            .nav-cta { display: none; }
+            nav { display: flex; justify-content: center; }
             .moon-container { width: 100vw; height: 100vw; bottom: -15vh; }
             .cta-group { flex-direction: column; align-items: center; }
             .platform-links { flex-direction: column; align-items: center; }
@@ -259,12 +262,15 @@
 
     <div class="layout">
         <nav>
-            <div class="brand">The Sleep Nebula</div>
             <div class="nav-links">
                 <a href="#episodes" class="nav-item">Episodes</a>
                 <a href="#about" class="nav-item">About</a>
                 <a href="#listen" class="nav-item">Listen</a>
                 <a href="#support" class="nav-item">Support</a>
+            </div>
+            <div class="brand">The Sleep Nebula</div>
+            <div class="nav-cta">
+                <a href="https://patreon.com/thesleepnebula" target="_blank" rel="noopener" class="cta-button">Become a Dreamer</a>
             </div>
         </nav>
 
@@ -273,7 +279,7 @@
                 <h1><span class="word" style="animation-delay:0.1s">Drift</span> <span class="word" style="animation-delay:0.35s">into</span> <span class="word" style="animation-delay:0.6s">the</span> <span class="word" style="animation-delay:0.85s">Void</span></h1>
                 <p class="hero-body" style="animation-delay:1.4s">Audio landscapes designed for deep rest. Stories from the edge of consciousness, narrated for the weary mind.</p>
                 <div class="cta-group" style="animation-delay:1.8s">
-                    <a href="#listen" class="cta-button primary">
+                    <a href="#episodes" class="cta-button primary">
                         <div class="play-icon"></div>
                         <span>Start Listening</span>
                     </a>
@@ -421,7 +427,7 @@
                         <li>Weekly releases</li>
                         <li>Community updates</li>
                     </ul>
-                    <a href="#listen" class="tier-btn">Start Listening</a>
+                    <a href="#episodes" class="tier-btn">Start Listening</a>
                 </div>
 
                 <div class="tier-card featured">
