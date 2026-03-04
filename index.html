@@ -769,13 +769,28 @@
         const ambientAudio = document.getElementById('ambientAudio');
         const musicToggle = document.getElementById('musicToggle');
         ambientAudio.volume = 0.3;
+        let musicStarted = false;
+
+        function startMusic() {
+            if (musicStarted) return;
+            ambientAudio.play().then(() => {
+                musicStarted = true;
+                musicToggle.classList.add('playing');
+                musicToggle.classList.remove('muted');
+            }).catch(() => {});
+        }
+
+        // Start on first interaction
+        ['click', 'scroll', 'touchstart', 'keydown'].forEach(evt => {
+            document.addEventListener(evt, startMusic, { once: true });
+        });
 
         function toggleMusic() {
+            if (!musicStarted) { startMusic(); return; }
             if (ambientAudio.paused) {
-                ambientAudio.play().then(() => {
-                    musicToggle.classList.add('playing');
-                    musicToggle.classList.remove('muted');
-                }).catch(() => {});
+                ambientAudio.play();
+                musicToggle.classList.add('playing');
+                musicToggle.classList.remove('muted');
             } else {
                 ambientAudio.pause();
                 musicToggle.classList.remove('playing');
