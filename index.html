@@ -328,6 +328,21 @@
         .social-link:hover { opacity: 1; }
 
         /* Responsive */
+        /* Ambient music toggle */
+        .music-toggle { position: fixed; bottom: 28px; right: 28px; z-index: 100; width: 44px; height: 44px; border-radius: 50%; background: var(--glass-surface); border: 1px solid var(--glass-border); backdrop-filter: blur(10px); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s var(--ease-out); }
+        .music-toggle:hover { border-color: var(--accent-glow); background: rgba(93, 127, 176, 0.1); }
+        .music-toggle svg { width: 18px; height: 18px; fill: var(--text-secondary); transition: fill 0.3s; }
+        .music-toggle.playing svg { fill: var(--accent-glow); }
+        .music-bars { display: flex; align-items: flex-end; gap: 2px; height: 14px; }
+        .music-bars span { display: block; width: 2.5px; background: currentColor; border-radius: 1px; animation: none; }
+        .music-toggle.playing .music-bars span { animation: musicBar 0.8s ease-in-out infinite alternate; }
+        .music-bars span:nth-child(1) { height: 40%; animation-delay: 0s; }
+        .music-bars span:nth-child(2) { height: 70%; animation-delay: 0.15s; }
+        .music-bars span:nth-child(3) { height: 50%; animation-delay: 0.3s; }
+        .music-bars span:nth-child(4) { height: 90%; animation-delay: 0.1s; }
+        .music-toggle.muted .music-bars span { animation: none !important; height: 3px !important; }
+        @keyframes musicBar { 0% { height: 20%; } 100% { height: 100%; } }
+
         /* Hamburger */
         .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 200; padding: 8px; }
         .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text-primary); transition: all 0.3s var(--ease-out); }
@@ -739,6 +754,34 @@
                 if (target) target.scrollIntoView({ behavior: 'smooth' });
             });
         });
+    </script>
+
+    <!-- Ambient Music -->
+    <div class="music-toggle muted" id="musicToggle" onclick="toggleMusic()" title="Toggle ambient music">
+        <div class="music-bars">
+            <span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+    <audio id="ambientAudio" loop preload="auto">
+        <source src="/ambient.mp3" type="audio/mpeg">
+    </audio>
+    <script>
+        const ambientAudio = document.getElementById('ambientAudio');
+        const musicToggle = document.getElementById('musicToggle');
+        ambientAudio.volume = 0.3;
+
+        function toggleMusic() {
+            if (ambientAudio.paused) {
+                ambientAudio.play().then(() => {
+                    musicToggle.classList.add('playing');
+                    musicToggle.classList.remove('muted');
+                }).catch(() => {});
+            } else {
+                ambientAudio.pause();
+                musicToggle.classList.remove('playing');
+                musicToggle.classList.add('muted');
+            }
+        }
     </script>
 
 </body>
