@@ -162,8 +162,24 @@
         .ep-desc { font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 32px; flex-grow: 1; }
         .ep-action { display: flex; align-items: center; gap: 12px; font-size: 0.85rem; color: var(--text-primary); opacity: 0.8; transition: opacity 0.3s; }
         .episode-card:hover .ep-action { opacity: 1; }
-        .play-circle { width: 32px; height: 32px; border: 1px solid var(--glass-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .play-circle { width: 32px; height: 32px; border: 1px solid var(--glass-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; flex-shrink: 0; }
         .episode-card:hover .play-circle { border-color: var(--accent-glow); background: rgba(93, 127, 176, 0.1); }
+
+        /* Audio player */
+        .audio-player { width: 100%; margin-top: 12px; }
+        .audio-player .player-controls { display: flex; align-items: center; gap: 12px; }
+        .audio-player .play-btn { width: 36px; height: 36px; border: 1px solid var(--glass-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; background: var(--glass-surface); backdrop-filter: blur(10px); transition: all 0.3s; flex-shrink: 0; }
+        .audio-player .play-btn:hover { border-color: var(--accent-glow); background: rgba(93, 127, 176, 0.1); }
+        .audio-player .play-btn .play-icon { width: 10px; height: 10px; background: var(--text-primary); clip-path: polygon(0 0, 100% 50%, 0 100%); transition: clip-path 0.2s; margin-left: 2px; }
+        .audio-player .play-btn.playing .play-icon { clip-path: polygon(0 0, 35% 0, 35% 100%, 0 100%); margin-left: 0; }
+        .audio-player .play-btn.playing::after { content: ''; display: block; position: absolute; width: 10px; height: 10px; }
+        .audio-player .pause-icon { display: flex; gap: 3px; }
+        .audio-player .pause-bar { width: 3px; height: 10px; background: var(--text-primary); border-radius: 1px; }
+        .audio-player .progress-wrap { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+        .audio-player .progress-bar { width: 100%; height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; cursor: pointer; position: relative; overflow: hidden; }
+        .audio-player .progress-bar:hover { height: 6px; }
+        .audio-player .progress-fill { height: 100%; background: var(--accent-glow); border-radius: 2px; width: 0%; transition: width 0.1s linear; }
+        .audio-player .time-display { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-secondary); letter-spacing: 0.05em; font-family: 'Inter', sans-serif; }
 
         /* Tiers */
         .tiers-section { padding: 100px 0; position: relative; z-index: 20; }
@@ -324,18 +340,34 @@
                     </div>
                 </article>
 
-                <article class="episode-card">
+                <article class="episode-card" id="ep-cloud-kingdom">
                     <div class="ep-meta">
                         <span class="ep-number">No. 001</span>
-                        <span class="ep-date">~35 min</span>
+                        <span class="ep-date">38 min</span>
                     </div>
                     <h3 class="ep-title">The Cloud Kingdom</h3>
                     <p class="ep-desc">Chase a lost cloud creature through marshmallow marshes and moonlit orchards. The Cloud King waits at the end.</p>
                     <div class="ep-action">
-                        <div class="play-circle">
+                        <div class="play-circle" style="cursor:pointer;" onclick="toggleEpisodeAudio(this)">
                             <div class="play-icon" style="width: 8px; height: 8px;"></div>
                         </div>
-                        <span>Coming Soon</span>
+                        <span>Listen Now</span>
+                    </div>
+                    <div class="audio-player" id="player-cloud-kingdom" data-src="https://www.buzzsprout.com/2471066/episodes/18786411-episode-1-the-cloud-kingdom.mp3">
+                        <div class="player-controls">
+                            <div class="play-btn" onclick="togglePlayer(this)">
+                                <div class="play-icon"></div>
+                            </div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" onclick="seekAudio(event, this)">
+                                    <div class="progress-fill"></div>
+                                </div>
+                                <div class="time-display">
+                                    <span class="current-time">0:00</span>
+                                    <span class="duration">38:00</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </article>
 
@@ -475,6 +507,70 @@
                 card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
             });
         });
+
+        // Audio player
+        let activeAudio = null;
+        let activeBtn = null;
+
+        function toggleEpisodeAudio(el) {
+            const card = el.closest('.episode-card');
+            const btn = card.querySelector('.audio-player .play-btn');
+            if (btn) togglePlayer(btn);
+        }
+
+        function togglePlayer(btn) {
+            const player = btn.closest('.audio-player');
+            if (!player.audio) {
+                player.audio = new Audio(player.dataset.src);
+                player.audio.addEventListener('loadedmetadata', () => {
+                    const dur = player.querySelector('.duration');
+                    dur.textContent = formatTime(player.audio.duration);
+                });
+                player.audio.addEventListener('timeupdate', () => {
+                    const pct = (player.audio.currentTime / player.audio.duration) * 100;
+                    player.querySelector('.progress-fill').style.width = pct + '%';
+                    player.querySelector('.current-time').textContent = formatTime(player.audio.currentTime);
+                });
+                player.audio.addEventListener('ended', () => {
+                    btn.classList.remove('playing');
+                    btn.innerHTML = '<div class="play-icon"></div>';
+                });
+            }
+
+            if (activeAudio && activeAudio !== player.audio) {
+                activeAudio.pause();
+                if (activeBtn) {
+                    activeBtn.classList.remove('playing');
+                    activeBtn.innerHTML = '<div class="play-icon"></div>';
+                }
+            }
+
+            if (player.audio.paused) {
+                player.audio.play();
+                btn.classList.add('playing');
+                btn.innerHTML = '<div class="pause-icon"><div class="pause-bar"></div><div class="pause-bar"></div></div>';
+                activeAudio = player.audio;
+                activeBtn = btn;
+            } else {
+                player.audio.pause();
+                btn.classList.remove('playing');
+                btn.innerHTML = '<div class="play-icon"></div>';
+            }
+        }
+
+        function seekAudio(e, bar) {
+            const player = bar.closest('.audio-player');
+            if (!player.audio) return;
+            const rect = bar.getBoundingClientRect();
+            const pct = (e.clientX - rect.left) / rect.width;
+            player.audio.currentTime = pct * player.audio.duration;
+        }
+
+        function formatTime(s) {
+            const m = Math.floor(s / 60);
+            const sec = Math.floor(s % 60);
+            return m + ':' + (sec < 10 ? '0' : '') + sec;
+        }
 
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
