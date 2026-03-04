@@ -102,6 +102,29 @@
         "episodeNumber": 2
     }
     </script>
+
+    <!-- Structured Data: Episode 3 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "PodcastEpisode",
+        "name": "Episode 3: The Midnight Tide Pools",
+        "description": "Kneel beside glowing tide pools at the edge of the ocean. A whimsical fish guides you through hidden gardens, jellyfish caverns, and an ancient city of light beneath the sea.",
+        "url": "https://sleepnebula.com#episodes",
+        "datePublished": "2026-03-04",
+        "timeRequired": "PT35M",
+        "associatedMedia": {
+            "@type": "MediaObject",
+            "contentUrl": "https://www.buzzsprout.com/2471066/episodes/18790602-episode-3-the-midnight-tide-pools.mp3"
+        },
+        "partOfSeries": {
+            "@type": "PodcastSeries",
+            "name": "The Sleep Nebula",
+            "url": "https://sleepnebula.com"
+        },
+        "episodeNumber": 3
+    }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -483,18 +506,31 @@
                     </div>
                 </article>
 
-                <article class="episode-card" style="opacity: 0.5; pointer-events: none;">
+                <article class="episode-card" id="ep-tide-pools">
                     <div class="ep-meta">
                         <span class="ep-number">No. 003</span>
-                        <span class="ep-date">~35 min</span>
+                        <span class="ep-date">35 min</span>
                     </div>
-                    <h3 class="ep-title">The Lighthouse at the End of Time</h3>
-                    <p class="ep-desc">A solitary keeper watches over a sea of stars, counting the waves as they turn into memories.</p>
+                    <h3 class="ep-title">The Midnight Tide Pools</h3>
+                    <p class="ep-desc">Kneel beside glowing tide pools at the edge of the ocean. A whimsical fish guides you through hidden gardens, jellyfish caverns, and an ancient city of light beneath the sea.</p>
                     <div class="ep-action">
-                        <div class="play-circle">
-                            <div class="play-icon" style="width: 8px; height: 8px;"></div>
+                        <span>Listen Now</span>
+                    </div>
+                    <div class="audio-player" data-src="https://www.buzzsprout.com/2471066/episodes/18790602-episode-3-the-midnight-tide-pools.mp3">
+                        <div class="player-controls">
+                            <div class="play-btn" onclick="togglePlayer(this)">
+                                <div class="play-icon"></div>
+                            </div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" onclick="seekAudio(event, this)">
+                                    <div class="progress-fill"></div>
+                                </div>
+                                <div class="time-display">
+                                    <span class="current-time">0:00</span>
+                                    <span class="duration">34:50</span>
+                                </div>
+                            </div>
                         </div>
-                        <span>In Development</span>
                     </div>
                 </article>
             </div>
