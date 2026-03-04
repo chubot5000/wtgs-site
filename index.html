@@ -3,11 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Where the Giants Sleep — A Sleep Podcast for the Waking Mind</title>
-    <meta name="description" content="Drift into sleep with immersive stories, guided wind-downs, and science-backed techniques. A premium sleep podcast crafted for restless minds.">
-    <meta property="og:title" content="Where the Giants Sleep">
+    <title>The Sleep Nebula — Audio Landscapes for Deep Rest</title>
+    <meta name="description" content="A sleep podcast crafted for restless minds. Guided wind-downs, immersive stories, and science-backed techniques to ease you into rest.">
+    <meta name="keywords" content="sleep podcast, sleep stories, guided meditation, deep rest, relaxation, bedtime stories for adults, sleep sounds">
+    <meta property="og:title" content="The Sleep Nebula">
     <meta property="og:description" content="Audio landscapes designed for deep rest. Stories from the edge of consciousness, narrated for the weary mind.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wtgs-site.vercel.app">
+    <meta property="og:site_name" content="The Sleep Nebula">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Sleep Nebula">
+    <meta name="twitter:description" content="Audio landscapes designed for deep rest. Stories from the edge of consciousness, narrated for the weary mind.">
+    <meta name="theme-color" content="#020204">
+    <link rel="canonical" href="https://wtgs-site.vercel.app">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "PodcastSeries",
+        "name": "The Sleep Nebula",
+        "description": "A sleep podcast crafted for restless minds. Guided wind-downs, immersive stories, and science-backed techniques to ease you into rest.",
+        "url": "https://wtgs-site.vercel.app",
+        "genre": ["Sleep", "Relaxation", "Fiction"],
+        "inLanguage": "en",
+        "author": {
+            "@type": "Organization",
+            "name": "The Sleep Nebula"
+        }
+    }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -117,7 +140,8 @@
         /* About */
         .about-section { padding: 120px 0 80px; position: relative; z-index: 20; }
         .about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-top: 60px; }
-        .about-item { text-align: center; }
+        .about-item { text-align: center; transition: transform 0.4s var(--ease-dream); cursor: default; }
+        .about-item:hover { transform: scale(1.05); }
         .about-icon { font-size: 2rem; margin-bottom: 20px; opacity: 0.6; }
         .about-item h3 { font-size: 1.5rem; margin-bottom: 12px; color: var(--text-primary); }
         .about-item p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; }
@@ -219,7 +243,7 @@
 
     <div class="layout">
         <nav>
-            <div class="brand">Where the Giants Sleep</div>
+            <div class="brand">The Sleep Nebula</div>
             <div class="nav-links">
                 <a href="#episodes" class="nav-item">Episodes</a>
                 <a href="#about" class="nav-item">About</a>
@@ -257,7 +281,7 @@
         <!-- About -->
         <section class="about-section" id="about">
             <div class="section-header">
-                <h2 class="section-title">What Is This?</h2>
+                <h2 class="section-title">How Each Episode Unfolds</h2>
             </div>
             <div class="about-grid">
                 <div class="about-item">
@@ -360,12 +384,12 @@
 
             <div class="tiers-grid">
                 <div class="tier-card">
-                    <div class="tier-icon">★</div>
-                    <div class="tier-name">Drifter</div>
+                    <div class="tier-icon">✦</div>
+                    <div class="tier-name">Stardust</div>
                     <div class="tier-price"><span>Free</span></div>
                     <ul class="tier-features">
-                        <li>Free episodes, weekly release</li>
-                        <li>Access to the archive</li>
+                        <li>Latest 10 episodes</li>
+                        <li>Weekly releases</li>
                         <li>Community updates</li>
                     </ul>
                     <a href="#listen" class="tier-btn">Start Listening</a>
@@ -374,28 +398,28 @@
                 <div class="tier-card featured">
                     <div class="tier-badge">Most Popular</div>
                     <div class="tier-icon">☽</div>
-                    <div class="tier-name">Dreamer</div>
+                    <div class="tier-name">Nebula</div>
                     <div class="tier-price"><span>$5</span> /month</div>
                     <ul class="tier-features">
+                        <li>Full archive access</li>
                         <li>Early access to new episodes</li>
                         <li>Bonus content & behind-the-scenes</li>
                         <li>Ad-free listening</li>
-                        <li>Patron-only Discord</li>
                     </ul>
-                    <a href="https://patreon.com/wherethegiantssleep" target="_blank" rel="noopener" class="tier-btn">Become a Dreamer</a>
+                    <a href="https://patreon.com/wherethegiantssleep" target="_blank" rel="noopener" class="tier-btn">Join Nebula</a>
                 </div>
 
                 <div class="tier-card">
-                    <div class="tier-icon" style="color: var(--accent-gold);">◉</div>
-                    <div class="tier-name">Giant</div>
+                    <div class="tier-icon" style="color: var(--accent-gold);">◎</div>
+                    <div class="tier-name">Deep Orbit</div>
                     <div class="tier-price"><span>$15</span> /month</div>
                     <ul class="tier-features">
-                        <li>Everything in Dreamer</li>
+                        <li>Everything in Nebula</li>
                         <li>Submit custom story ideas</li>
                         <li>Your name in episode credits</li>
-                        <li>Exclusive Giant-only episodes</li>
+                        <li>Exclusive Deep Orbit episodes</li>
                     </ul>
-                    <a href="https://patreon.com/wherethegiantssleep" target="_blank" rel="noopener" class="tier-btn">Become a Giant</a>
+                    <a href="https://patreon.com/wherethegiantssleep" target="_blank" rel="noopener" class="tier-btn">Enter Deep Orbit</a>
                 </div>
             </div>
         </section>
@@ -412,7 +436,7 @@
     </div>
 
     <footer>
-        <div class="footer-logo">Where the Giants Sleep</div>
+        <div class="footer-logo">The Sleep Nebula</div>
         <div class="footer-links">
             <a href="#episodes">Episodes</a>
             <a href="#about">About</a>
@@ -424,7 +448,7 @@
             <a href="#" class="social-link">Apple Podcasts</a>
             <a href="#" class="social-link">YouTube</a>
         </div>
-        <p>© 2026 Where the Giants Sleep. Rest well.</p>
+        <p>© 2026 The Sleep Nebula. Rest well.</p>
     </footer>
 
     <script>
