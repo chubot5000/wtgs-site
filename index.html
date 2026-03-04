@@ -79,6 +79,29 @@
         "episodeNumber": 1
     }
     </script>
+
+    <!-- Structured Data: Episode 2 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "PodcastEpisode",
+        "name": "Episode 2: Space Drift",
+        "description": "Float through nebulae on a decommissioned research vessel. Drift past rings of ice, stellar nurseries, and the warm pulse of an ancient dying star.",
+        "url": "https://sleepnebula.com#episodes",
+        "datePublished": "2026-03-04",
+        "timeRequired": "PT45M",
+        "associatedMedia": {
+            "@type": "MediaObject",
+            "contentUrl": "https://www.buzzsprout.com/2471066/episodes/18790224-episode-2-space-drift.mp3"
+        },
+        "partOfSeries": {
+            "@type": "PodcastSeries",
+            "name": "The Sleep Nebula",
+            "url": "https://sleepnebula.com"
+        },
+        "episodeNumber": 2
+    }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -407,18 +430,31 @@
                     </div>
                 </article>
 
-                <article class="episode-card">
+                <article class="episode-card" id="ep-space-drift">
                     <div class="ep-meta">
                         <span class="ep-number">No. 002</span>
-                        <span class="ep-date">~35 min</span>
+                        <span class="ep-date">45 min</span>
                     </div>
                     <h3 class="ep-title">Space Drift</h3>
                     <p class="ep-desc">Float through nebulae on a decommissioned research vessel. The hum of the engines is steady. The stars outside are patient.</p>
                     <div class="ep-action">
-                        <div class="play-circle">
-                            <div class="play-icon" style="width: 8px; height: 8px;"></div>
+                        <span>Listen Now</span>
+                    </div>
+                    <div class="audio-player" data-src="https://www.buzzsprout.com/2471066/episodes/18790224-episode-2-space-drift.mp3">
+                        <div class="player-controls">
+                            <div class="play-btn" onclick="togglePlayer(this)">
+                                <div class="play-icon"></div>
+                            </div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" onclick="seekAudio(event, this)">
+                                    <div class="progress-fill"></div>
+                                </div>
+                                <div class="time-display">
+                                    <span class="current-time">0:00</span>
+                                    <span class="duration">45:08</span>
+                                </div>
+                            </div>
                         </div>
-                        <span>Coming Soon</span>
                     </div>
                 </article>
 
